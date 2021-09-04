@@ -1,12 +1,19 @@
 import React from 'react';
-import Header from './components/Header';
-import HospitalList from './components/vaccines/HospitalList';
+import './App.css';
+import VaccineCenterList from './components/main/VaccineCenterList';
 
 function App() {
+	const Header = () => {
+		return (
+			<div className="Header">
+				<h1>Covid Vaccine Notifier</h1>
+			</div>
+		);
+	};
 	return (
-		<div>
+		<div className="App">
 			<Header />
-			<HospitalList />
+			<VaccineCenterList />
 		</div>
 	);
 }
