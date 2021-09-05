@@ -3,11 +3,11 @@ import { createVaccineCenterList } from './Center';
 import Center from './CenterDisplay';
 
 function VaccineCenterList() {
-	const [vaccineCenters, setVaccineCenters] = useState([])
+	const [vaccineCenters, setVaccineCenters] = useState([]);
 
 	// useEffect(() => {
 	// 	console.log('useEffect API Fetch with interval 5000')
-	// 	setInterval(()=>{getVaccineDataFromApi()} , 5000);
+	// 	setInterval(()=>{getDataFromApi()} , 5000);
 	// 	return () => {
 	// 	}
 	// }, [])
@@ -31,6 +31,7 @@ function VaccineCenterList() {
 			console.log('setHospital data');
 			console.log(apiData.centers[0]);
 			addVaccineCenters([
+				//Only 6 centers for testing
 				apiData.centers[0],
 				apiData.centers[1],
 				apiData.centers[2],
@@ -38,6 +39,7 @@ function VaccineCenterList() {
 				apiData.centers[4],
 				apiData.centers[5],
 			]);
+			// addVaccineCenters(apiData.centers);
 		} catch (err) {
 			console.log(err);
 		}
