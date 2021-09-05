@@ -1,15 +1,19 @@
-import React from 'react';
+import React,{useState } from 'react';
 import './CenterDisplay.css';
+import FullDetailsPopUp from './FullDetailsPopUp';
 
 function Center({ data }) {
+	const [isPopupOpen, setIsPopupOpen] = useState(false);
+	const [selectedCenter, setSelectedCenter] = useState('')
+
 	console.log(data);
-	
 
 	return (
 		<div>
 			{data.map((center, index) => {
 				return (
-					<div key={index} className="card">
+					<div key={index} className="card" onClick={()=>{setIsPopupOpen(true)
+					setSelectedCenter(center)}}>
 						<div className="card-body">
 							<h5 className="card-title">{center.name}</h5>
 							<h6 className="card-subtitle mb-2 text-muted">{center.block_name}</h6>
@@ -33,8 +37,11 @@ function Center({ data }) {
 					</div>
 				);
 			})}
+			<FullDetailsPopUp isPopupOpen={isPopupOpen} selectedCenter={selectedCenter} closePopup={()=>setIsPopupOpen(false)}/>
 		</div>
 	);
 }
+
+
 
 export default Center;

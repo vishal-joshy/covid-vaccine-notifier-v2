@@ -5,15 +5,14 @@ import VaccineCenterList from './components/main/VaccineCenterList';
 function App() {
 	const Header = () => {
 		return (
-			<div className="Header">
+			<header>
 				<h1>Covid Vaccine Notifier</h1>
-			</div>
+			</header>
 		);
 	};
 	return (
 		<div className="App">
 			<Header />
-			
 			<VaccineCenterList />
 		</div>
 	);

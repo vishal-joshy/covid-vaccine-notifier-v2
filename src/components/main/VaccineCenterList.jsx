@@ -49,7 +49,7 @@ function VaccineCenterList() {
 	};
 
 	return (
-		<div>
+		<div className='VaccineCenterList'>
 			<button onClick={getDataFromApi}>GetData</button>
 			<Center data={vaccineCenters} />
 		</div>
