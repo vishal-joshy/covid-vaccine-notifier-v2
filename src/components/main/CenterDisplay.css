@@ -11,7 +11,7 @@
 	bottom: 0;
 	left: 0;
 	right: 0;
-	background-color: rgba(0, 0, 0, 0.7);
+	background-color: rgba(0, 0, 0, 0.3);
 	z-index: 1000;
 }
 .pop-up {
@@ -22,4 +22,10 @@
 	background-color: #fff;
 	padding: 50px;
 	z-index: 1000;
+	border: 1px solid black;
+	box-sizing: border-box;
+	border-radius: 12px;
+	padding: 2em;
+	max-width: 600px;
+	min-width: 500px;
 }

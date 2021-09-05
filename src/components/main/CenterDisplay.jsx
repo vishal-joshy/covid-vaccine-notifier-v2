@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './CenterDisplay.css';
 import FullDetailsPopUp from './FullDetailsPopUp';
 
-function Center({ data }) {
+function CenterDisplay({ data, sortByName }) {
 	const [isPopupOpen, setIsPopupOpen] = useState(false);
 	const [selectedCenter, setSelectedCenter] = useState('');
 
@@ -14,7 +14,9 @@ function Center({ data }) {
 				<thead>
 					<tr>
 						<th scope='col'>Date</th>
-						<th scope='col'>Center</th>
+						<th scope='col' onClick={sortByName}>
+							Center
+						</th>
 						<th scope='col'>Dose 1</th>
 						<th scope='col'>Dose 2</th>
 					</tr>
@@ -22,24 +24,23 @@ function Center({ data }) {
 				<tbody>
 					{data.map((center, index) => {
 						return (
-							<>
-								<tr
-									onClick={() => {
-										setIsPopupOpen(true);
-										setSelectedCenter(center);
-									}}>
-									<td>{center.sessions[0].date}</td>
-									<td>
-										<div>
-											<h6 className='card-title'>{center.name}</h6>
-											<h6 className='card-subtitle mb-2 text-muted'>{center.block_name}</h6>
-											<p className='card-text'>{center.pincode}</p>
-										</div>
-									</td>
-									<td>{center.sessions[0].available_capacity_dose1}</td>
-									<td>{center.sessions[0].available_capacity_dose2}</td>
-								</tr>
-							</>
+							<tr
+								key={index}
+								onClick={() => {
+									setIsPopupOpen(true);
+									setSelectedCenter(center);
+								}}>
+								<td>{center.sessions[0].date}</td>
+								<td>
+									<div>
+										<h6 className='card-title'>{center.name}</h6>
+										<h6 className='card-subtitle mb-2 text-muted'>{center.block_name}</h6>
+										<p className='card-text'>{center.pincode}</p>
+									</div>
+								</td>
+								<td>{center.sessions[0].available_capacity_dose1}</td>
+								<td>{center.sessions[0].available_capacity_dose2}</td>
+							</tr>
 						);
 					})}
 					<FullDetailsPopUp
@@ -90,4 +91,4 @@ function Center({ data }) {
 	);
 }
 
-export default Center;
+export default CenterDisplay;
