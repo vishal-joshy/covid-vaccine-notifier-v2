@@ -50,7 +50,7 @@ function VaccineCenterList() {
 	const handleFilterButtons = (vaccine = 'all', age = 0) => {
 		console.log(age, vaccine);
 	};
-	
+
 	return (
 		<div className='VaccineCenterList'>
 			<button onClick={getDataFromApi}>GetData</button>

@@ -7,12 +7,15 @@ function CenterDisplay({ vaccineCenters }) {
 	const [isPopupOpen, setIsPopupOpen] = useState(false);
 	const [selectedCenter, setSelectedCenter] = useState('');
 	const [userSortSelection, setUserSortSelection] = useState('');
-	let sortedData = [];
-	if (userSortSelection === 'name') {
-		sortedData = sortCentersByName([...vaccineCenters]);
-	} else {
-		sortedData = sortCentersByDate([...vaccineCenters]);
-	}
+	const [sortedData, setSortedData] = useState([]);
+	
+	useEffect(() => {
+		if (userSortSelection === 'name') {
+			setSortedData(sortCentersByName([...vaccineCenters]));
+		} else {
+			setSortedData(sortCentersByDate([...vaccineCenters]));
+		}
+	}, [userSortSelection, vaccineCenters]);
 
 	return (
 		<div>
