@@ -5,7 +5,7 @@ import CenterDisplay from './CenterDisplay';
 function VaccineCenterList() {
 	const [vaccineCenters, setVaccineCenters] = useState([]);
 
-	// useEffect(() => {
+	// useEffect(() => {					//Call APi with Delay 
 	// 	console.log('useEffect API Fetch with interval 5000')
 	// 	setInterval(()=>{getDataFromApi()} , 5000);
 	// 	return () => {
@@ -13,6 +13,7 @@ function VaccineCenterList() {
 	// }, [])
 
 	useEffect(() => {
+		//FOr testing
 		console.log('useEffect Dependency = vaccineCenterData');
 		console.log(vaccineCenters);
 		return () => {};
@@ -30,7 +31,7 @@ function VaccineCenterList() {
 			const apiData = await response.json();
 			console.log('setHospital data');
 			console.log(apiData.centers[0]);
-			addVaccineCenters([
+			const centerList = [
 				//Only 6 centers for testing
 				apiData.centers[0],
 				apiData.centers[1],
@@ -38,16 +39,13 @@ function VaccineCenterList() {
 				apiData.centers[3],
 				apiData.centers[4],
 				apiData.centers[5],
-			]);
-			// addVaccineCenters(apiData.centers);
+			];
+
+			// const centerList = Center.createVaccineCenterList(apiData.centers)
+			setVaccineCenters(centerList);
 		} catch (err) {
 			console.log(err);
 		}
-	};
-	const addVaccineCenters = (apiData) => {
-		const centerList = Center.createVaccineCenterList(apiData);
-		console.log(centerList);
-		setVaccineCenters(centerList);
 	};
 
 	const sortTableBy = (userSortSelection) => {

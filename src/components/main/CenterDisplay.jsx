@@ -11,7 +11,7 @@ function CenterDisplay({ data, sortTableBy }) {
 		sortTableBy(userSortSelection);
 		// if usersortselection == date , sorttableByDate
 	}, [userSortSelection]);
-	
+
 	return (
 		<div>
 			<table className='table'>
@@ -33,6 +33,9 @@ function CenterDisplay({ data, sortTableBy }) {
 						</th>
 						<th scope='col'>Dose 1</th>
 						<th scope='col'>Dose 2</th>
+						<th scope='col'>Age</th>
+						<th scope='col'>Vaccine</th>
+						<th scope='col'>Type</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -54,6 +57,8 @@ function CenterDisplay({ data, sortTableBy }) {
 								</td>
 								<td>{center.sessions[0].available_capacity_dose1}</td>
 								<td>{center.sessions[0].available_capacity_dose2}</td>
+								<td>{center.sessions[0].min_age_limit}+</td>
+								<td>{center.sessions[0].vaccine}</td>
 							</tr>
 						);
 					})}
