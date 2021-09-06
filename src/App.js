@@ -7,6 +7,7 @@ function App() {
 		return (
 			<header>
 				<h1>Covid Vaccine Notifier</h1>
+				<h6>Ernakulam</h6>
 			</header>
 		);
 	};

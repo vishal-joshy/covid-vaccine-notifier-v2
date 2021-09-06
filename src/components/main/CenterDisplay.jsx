@@ -1,20 +1,34 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './CenterDisplay.css';
 import FullDetailsPopUp from './FullDetailsPopUp';
 
-function CenterDisplay({ data, sortByName }) {
+function CenterDisplay({ data, sortTableBy }) {
 	const [isPopupOpen, setIsPopupOpen] = useState(false);
 	const [selectedCenter, setSelectedCenter] = useState('');
-
-	console.log(data);
-
+	const [userSortSelection, setUserSortSelection] = useState('date');
+	useEffect(() => {
+		console.log(userSortSelection);
+		sortTableBy(userSortSelection);
+		// if usersortselection == date , sorttableByDate
+	}, [userSortSelection]);
+	
 	return (
 		<div>
 			<table className='table'>
 				<thead>
 					<tr>
-						<th scope='col'>Date</th>
-						<th scope='col' onClick={sortByName}>
+						<th
+							scope='col'
+							onClick={() => {
+								setUserSortSelection('date');
+							}}>
+							Date
+						</th>
+						<th
+							scope='col'
+							onClick={() => {
+								setUserSortSelection('name');
+							}}>
 							Center
 						</th>
 						<th scope='col'>Dose 1</th>

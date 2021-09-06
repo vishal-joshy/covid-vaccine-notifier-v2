@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import Center from './Center';
+import * as Center from './Center';
 import CenterDisplay from './CenterDisplay';
 
 function VaccineCenterList() {
@@ -30,16 +30,16 @@ function VaccineCenterList() {
 			const apiData = await response.json();
 			console.log('setHospital data');
 			console.log(apiData.centers[0]);
-			// addVaccineCenters([
-			// 	//Only 6 centers for testing
-			// 	apiData.centers[0],
-			// 	apiData.centers[1],
-			// 	apiData.centers[2],
-			// 	apiData.centers[3],
-			// 	apiData.centers[4],
-			// 	apiData.centers[5],
-			// ]);
-			addVaccineCenters(apiData.centers);
+			addVaccineCenters([
+				//Only 6 centers for testing
+				apiData.centers[0],
+				apiData.centers[1],
+				apiData.centers[2],
+				apiData.centers[3],
+				apiData.centers[4],
+				apiData.centers[5],
+			]);
+			// addVaccineCenters(apiData.centers);
 		} catch (err) {
 			console.log(err);
 		}
@@ -50,17 +50,24 @@ function VaccineCenterList() {
 		setVaccineCenters(centerList);
 	};
 
-	const sortByName = () => {
-		const sortedByName = Center.sortCentersByName([...vaccineCenters]);
-		console.log('sorted by name ');
-		console.log(sortedByName[0]);
-		setVaccineCenters(sortedByName);
+	const sortTableBy = (userSortSelection) => {
+		const newValues = Center.sortCentersBy(userSortSelection, [...vaccineCenters]);
+		console.log(newValues);
+		setVaccineCenters(newValues);
 	};
 
 	return (
 		<div className='VaccineCenterList'>
 			<button onClick={getDataFromApi}>GetData</button>
-			<CenterDisplay data={vaccineCenters} sortByName={() => sortByName()} />
+			<div>
+				Filters : Age: <button>18</button>
+				<button>40</button>
+				<button>45</button>
+				Vaccine:<button>Covishield</button>
+				<button>Covaxin</button>
+				<button>Sputnik</button>
+			</div>
+			<CenterDisplay data={vaccineCenters} sortTableBy={sortTableBy} />
 		</div>
 	);
 }
