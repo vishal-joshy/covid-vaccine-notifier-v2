@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import * as Center from './Center';
+import createVaccineCenterList from './Center';
 import CenterDisplay from './CenterDisplay';
 
 function VaccineCenterList() {
 	const [vaccineCenters, setVaccineCenters] = useState([]);
+	const [filters, setFilters] = useState({ age: 0, vaccine: 'all' });
 
-	// useEffect(() => {					//Call APi with Delay 
+	// useEffect(() => {					//Call APi with Delay
 	// 	console.log('useEffect API Fetch with interval 5000')
 	// 	setInterval(()=>{getDataFromApi()} , 5000);
 	// 	return () => {
@@ -29,10 +30,8 @@ function VaccineCenterList() {
 				}
 			);
 			const apiData = await response.json();
-			console.log('setHospital data');
-			console.log(apiData.centers[0]);
-			const centerList = [
-				//Only 6 centers for testing
+			//Taking only 6 centers
+			const tempList = [
 				apiData.centers[0],
 				apiData.centers[1],
 				apiData.centers[2],
@@ -40,32 +39,62 @@ function VaccineCenterList() {
 				apiData.centers[4],
 				apiData.centers[5],
 			];
-
-			// const centerList = Center.createVaccineCenterList(apiData.centers)
+			// const centerList = Center.createVaccineCenterList(tempList);
+			const centerList = createVaccineCenterList(apiData.centers);
 			setVaccineCenters(centerList);
 		} catch (err) {
 			console.log(err);
 		}
 	};
 
-	const sortTableBy = (userSortSelection) => {
-		const newValues = Center.sortCentersBy(userSortSelection, [...vaccineCenters]);
-		console.log(newValues);
-		setVaccineCenters(newValues);
+	const handleFilterButtons = (vaccine = 'all', age = 0) => {
+		console.log(age, vaccine);
 	};
-
+	
 	return (
 		<div className='VaccineCenterList'>
 			<button onClick={getDataFromApi}>GetData</button>
 			<div>
-				Filters : Age: <button>18</button>
-				<button>40</button>
-				<button>45</button>
-				Vaccine:<button>Covishield</button>
-				<button>Covaxin</button>
-				<button>Sputnik</button>
+				Filters : Age:{' '}
+				<button
+					onClick={() => {
+						handleFilterButtons('all', 18);
+					}}>
+					18
+				</button>
+				<button
+					onClick={() => {
+						handleFilterButtons('all', 40);
+					}}>
+					40
+				</button>
+				<button
+					onClick={() => {
+						handleFilterButtons('all', 45);
+					}}>
+					45
+				</button>
+				Vaccine:
+				<button
+					onClick={() => {
+						handleFilterButtons('covishield');
+					}}>
+					Covishield
+				</button>
+				<button
+					onClick={() => {
+						handleFilterButtons('covaxin');
+					}}>
+					Covaxin
+				</button>
+				<button
+					onClick={() => {
+						handleFilterButtons('Sputnik');
+					}}>
+					Sputnik
+				</button>
 			</div>
-			<CenterDisplay data={vaccineCenters} sortTableBy={sortTableBy} />
+			<CenterDisplay vaccineCenters={vaccineCenters} />
 		</div>
 	);
 }
