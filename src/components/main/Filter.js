@@ -24,4 +24,19 @@ const filterVaccine = (vaccineFilter, centers) => {
 	return newCenters;
 };
 
-export { filterAge, filterVaccine };
+const filterName = (nameFilter, centers) => {
+	if (nameFilter === '') {
+		return centers;
+	}
+	const regex = new RegExp(nameFilter, 'gi');
+	const newCenters = centers.filter((center) => {
+		const match = regex.exec(center.name);
+		if (match) {
+			return center;
+		}
+		return null;
+	});
+	return newCenters;
+};
+
+export { filterAge, filterVaccine, filterName };

@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import createVaccineCenterList from './Center';
 import CenterDisplay from './CenterDisplay';
-import { filterAge, filterVaccine } from './Filter';
+import { filterAge, filterVaccine, filterName } from './Filter';
 
 function VaccineCenterList() {
 	const [vaccineCenters, setVaccineCenters] = useState([]);
 	const [ageFilter, setAgeFilter] = useState(0);
 	const [vaccineFilter, setVaccineFilter] = useState('ALL');
 	const [filteredVaccineCenters, setFilteredVaccineCenters] = useState([]);
-
+	const [nameFilter, setNameFilter] = useState('');
 	// useEffect(() => {					//Call APi with Delay
 	// 	console.log('useEffect API Fetch with interval 5000')
 	// 	setInterval(()=>{getDataFromApi()} , 5000);
@@ -50,15 +50,23 @@ function VaccineCenterList() {
 		}
 	};
 	useEffect(() => {
-		const filteredData = filterVaccine(vaccineFilter, filterAge(ageFilter, [...vaccineCenters]));
+		const filteredData = filterName(
+			nameFilter,
+			filterVaccine(vaccineFilter, filterAge(ageFilter, [...vaccineCenters]))
+		);
 		setFilteredVaccineCenters(filteredData);
-	}, [ageFilter, vaccineFilter, vaccineCenters]);
+	}, [ageFilter, vaccineFilter, nameFilter, vaccineCenters]);
 
+	const handleNameFilter = (e) => {
+		console.log(e.target.value);
+		setNameFilter(e.target.value);
+	};
 	return (
 		<div className='VaccineCenterList'>
 			<button onClick={getDataFromApi}>GetData</button>
 			<div>
-				Filters : Age:{' '}
+				Filters : Name: <input type='text' onChange={handleNameFilter}></input>
+				Age:
 				<button
 					onClick={() => {
 						setAgeFilter(0);

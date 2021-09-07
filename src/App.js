@@ -6,13 +6,18 @@ function App() {
 	const Header = () => {
 		return (
 			<header>
-				<h1>Covid Vaccine Notifier</h1>
-				<h6>Ernakulam</h6>
+				<div>
+					<h1>Covid Vaccine Notifier</h1>
+					<h6>Ernakulam</h6>
+				</div>
+				<div>
+					<button>Co-win </button>
+				</div>
 			</header>
 		);
 	};
 	return (
-		<div className="App">
+		<div className='App'>
 			<Header />
 			<VaccineCenterList />
 		</div>
