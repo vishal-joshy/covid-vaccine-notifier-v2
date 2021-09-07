@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import createVaccineCenterList from './Center';
 import CenterDisplay from './CenterDisplay';
-import { filterAge } from './Filter';
+import { filterAge, filterVaccine } from './Filter';
 
 function VaccineCenterList() {
 	const [vaccineCenters, setVaccineCenters] = useState([]);
 	const [ageFilter, setAgeFilter] = useState(0);
-	const [vaccineFilter, setVaccineFilter] = useState('all');
+	const [vaccineFilter, setVaccineFilter] = useState('ALL');
 	const [filteredVaccineCenters, setFilteredVaccineCenters] = useState([]);
 
 	// useEffect(() => {					//Call APi with Delay
@@ -50,8 +50,7 @@ function VaccineCenterList() {
 		}
 	};
 	useEffect(() => {
-		console.log(ageFilter, vaccineFilter);
-		const filteredData = filterAge(ageFilter, [...vaccineCenters]);
+		const filteredData = filterVaccine(vaccineFilter, filterAge(ageFilter, [...vaccineCenters]));
 		setFilteredVaccineCenters(filteredData);
 	}, [ageFilter, vaccineFilter, vaccineCenters]);
 
@@ -87,19 +86,25 @@ function VaccineCenterList() {
 				Vaccine:
 				<button
 					onClick={() => {
-						setVaccineFilter('covishield');
+						setVaccineFilter('ALL');
+					}}>
+					All
+				</button>
+				<button
+					onClick={() => {
+						setVaccineFilter('COVISHIELD');
 					}}>
 					Covishield
 				</button>
 				<button
 					onClick={() => {
-						setVaccineFilter('covaxin');
+						setVaccineFilter('COVAXIN');
 					}}>
 					Covaxin
 				</button>
 				<button
 					onClick={() => {
-						setVaccineFilter('sputnik');
+						setVaccineFilter('SPUTNIK V');
 					}}>
 					Sputnik
 				</button>

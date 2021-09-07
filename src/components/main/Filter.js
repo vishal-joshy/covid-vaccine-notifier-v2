@@ -1,5 +1,4 @@
 const filterAge = (ageFilter, centers) => {
-	console.log('ageFilter', centers);
 	if (ageFilter === 0) {
 		return centers;
 	}
@@ -11,6 +10,18 @@ const filterAge = (ageFilter, centers) => {
 	});
 	return newCenters;
 };
-const filterVaccine = (vaccineFilter, centers) => {};
+
+const filterVaccine = (vaccineFilter, centers) => {
+	if (vaccineFilter === 'ALL') {
+		return centers;
+	}
+	const newCenters = centers.filter((center) => {
+		if (center.sessions[0].vaccine === vaccineFilter) {
+			return center;
+		}
+		return null;
+	});
+	return newCenters;
+};
 
 export { filterAge, filterVaccine };
