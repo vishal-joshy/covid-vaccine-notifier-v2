@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import createVaccineCenterList from './Center';
 import CenterDisplay from './CenterDisplay';
-import { filterAge, filterVaccine, filterName } from './Filter';
+import { filterAge, filterPinCode, filterVaccine, filterName } from './Filter';
 
 function VaccineCenterList() {
 	const [vaccineCenters, setVaccineCenters] = useState([]);
@@ -9,6 +9,7 @@ function VaccineCenterList() {
 	const [vaccineFilter, setVaccineFilter] = useState('ALL');
 	const [filteredVaccineCenters, setFilteredVaccineCenters] = useState([]);
 	const [nameFilter, setNameFilter] = useState('');
+	const [pinCodeFilter, setPinCodeFilter] = useState(0);
 	// useEffect(() => {					//Call APi with Delay
 	// 	console.log('useEffect API Fetch with interval 5000')
 	// 	setInterval(()=>{getDataFromApi()} , 5000);
@@ -50,22 +51,31 @@ function VaccineCenterList() {
 		}
 	};
 	useEffect(() => {
-		const filteredData = filterName(
-			nameFilter,
-			filterVaccine(vaccineFilter, filterAge(ageFilter, [...vaccineCenters]))
+		const filteredData = filterPinCode(
+			pinCodeFilter,
+			filterName(
+				nameFilter,
+				filterVaccine(vaccineFilter, filterAge(ageFilter, [...vaccineCenters]))
+			)
 		);
 		setFilteredVaccineCenters(filteredData);
-	}, [ageFilter, vaccineFilter, nameFilter, vaccineCenters]);
+	}, [ageFilter, vaccineFilter, nameFilter, pinCodeFilter, vaccineCenters]);
 
 	const handleNameFilter = (e) => {
-		console.log(e.target.value);
 		setNameFilter(e.target.value);
+	};
+
+	const handlePinCodeFilter = (e) => {
+		setPinCodeFilter(e.target.value);
 	};
 	return (
 		<div className='VaccineCenterList'>
 			<button onClick={getDataFromApi}>GetData</button>
 			<div>
-				Filters : Name: <input type='text' onChange={handleNameFilter}></input>
+				Filters : Name:{' '}
+				<input type='text' onChange={handleNameFilter}></input>
+				Pincode:{' '}
+				<input type='number' onChange={handlePinCodeFilter}></input>
 				Age:
 				<button
 					onClick={() => {
@@ -117,7 +127,13 @@ function VaccineCenterList() {
 					Sputnik
 				</button>
 			</div>
-			<CenterDisplay vaccineCenters={filteredVaccineCenters} />
+			{filteredVaccineCenters.length !== 0 ? (
+				<CenterDisplay vaccineCenters={filteredVaccineCenters} />
+			) : (
+				<div>
+					No vaccine centers available <button>Notify Me !</button>{' '}
+				</div>
+			)}
 		</div>
 	);
 }

@@ -38,5 +38,19 @@ const filterName = (nameFilter, centers) => {
 	});
 	return newCenters;
 };
+const filterPinCode = (pinCodeFilter, centers) => {
+	if (pinCodeFilter === 0) {
+		return centers;
+	}
+	const regex = new RegExp(pinCodeFilter, 'g');
+	const newCenters = centers.filter((center) => {
+		const match = regex.exec(center.pincode);
+		if (match) {
+			return center;
+		}
+		return null;
+	});
+	return newCenters;
+};
 
-export { filterAge, filterVaccine, filterName };
+export { filterAge, filterVaccine, filterName, filterPinCode };
