@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import createVaccineCenterList from './Center';
 import CenterDisplay from './CenterDisplay';
 import { filterAge, filterPinCode, filterVaccine, filterName } from './Filter';
+import { pushNotification } from './Notification';
 
 function VaccineCenterList() {
 	const [vaccineCenters, setVaccineCenters] = useState([]);
@@ -10,19 +11,14 @@ function VaccineCenterList() {
 	const [filteredVaccineCenters, setFilteredVaccineCenters] = useState([]);
 	const [nameFilter, setNameFilter] = useState('');
 	const [pinCodeFilter, setPinCodeFilter] = useState(0);
+	const [notificationStatus, setNotificationStatus] = useState(false);
+
 	// useEffect(() => {					//Call APi with Delay
 	// 	console.log('useEffect API Fetch with interval 5000')
 	// 	setInterval(()=>{getDataFromApi()} , 5000);
 	// 	return () => {
 	// 	}
 	// }, [])
-
-	// useEffect(() => {
-	// 	//FOr testing
-	// 	console.log('useEffect Dependency = vaccineCenterData');
-	// 	console.log(vaccineCenters);
-	// 	return () => {};
-	// }, [vaccineCenters]);
 
 	const getDataFromApi = async () => {
 		console.log('Vaccine Api fetch ');
@@ -34,22 +30,13 @@ function VaccineCenterList() {
 				}
 			);
 			const apiData = await response.json();
-			//Taking only 6 centers
-			const tempList = [
-				apiData.centers[0],
-				apiData.centers[1],
-				apiData.centers[2],
-				apiData.centers[3],
-				apiData.centers[4],
-				apiData.centers[5],
-			];
-			// const centerList = createVaccineCenterList(tempList);
 			const centerList = createVaccineCenterList(apiData.centers);
 			setVaccineCenters(centerList);
 		} catch (err) {
 			console.log(err);
 		}
 	};
+
 	useEffect(() => {
 		const filteredData = filterPinCode(
 			pinCodeFilter,
@@ -58,24 +45,29 @@ function VaccineCenterList() {
 				filterVaccine(vaccineFilter, filterAge(ageFilter, [...vaccineCenters]))
 			)
 		);
+		if (notificationStatus) {
+			if (filteredData.length > 0) {
+				console.log('push notification');
+				pushNotification();
+				setNotificationStatus(false);
+			}
+		}
 		setFilteredVaccineCenters(filteredData);
-	}, [ageFilter, vaccineFilter, nameFilter, pinCodeFilter, vaccineCenters]);
+	}, [ageFilter, vaccineFilter, nameFilter, pinCodeFilter, vaccineCenters, notificationStatus]);
 
 	const handleNameFilter = (e) => {
 		setNameFilter(e.target.value);
 	};
-
 	const handlePinCodeFilter = (e) => {
 		setPinCodeFilter(e.target.value);
 	};
+
 	return (
 		<div className='VaccineCenterList'>
 			<button onClick={getDataFromApi}>GetData</button>
 			<div>
-				Filters : Name:{' '}
-				<input type='text' onChange={handleNameFilter}></input>
-				Pincode:{' '}
-				<input type='number' onChange={handlePinCodeFilter}></input>
+				Filters : Name: <input type='text' onChange={handleNameFilter}></input>
+				Pincode: <input type='number' onChange={handlePinCodeFilter}></input>
 				Age:
 				<button
 					onClick={() => {
@@ -131,7 +123,13 @@ function VaccineCenterList() {
 				<CenterDisplay vaccineCenters={filteredVaccineCenters} />
 			) : (
 				<div>
-					No vaccine centers available <button>Notify Me !</button>{' '}
+					No vaccine centers available{' '}
+					<button
+						onClick={() => {
+							setNotificationStatus(true);
+						}}>
+						Notify Me !
+					</button>
 				</div>
 			)}
 		</div>
