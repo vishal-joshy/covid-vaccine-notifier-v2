@@ -8,7 +8,7 @@ function CenterDisplay({ vaccineCenters }) {
 	const [selectedCenter, setSelectedCenter] = useState('');
 	const [userSortSelection, setUserSortSelection] = useState('');
 	const [sortedData, setSortedData] = useState([]);
-	
+
 	useEffect(() => {
 		if (userSortSelection === 'name') {
 			setSortedData(sortCentersByName([...vaccineCenters]));
@@ -38,7 +38,7 @@ function CenterDisplay({ vaccineCenters }) {
 						</th>
 						<th scope='col'>Dose 1</th>
 						<th scope='col'>Dose 2</th>
-						<th scope='col'>Age</th>
+						<th scope='col'>Min.Age</th>
 						<th scope='col'>Vaccine</th>
 						<th scope='col'>Type</th>
 					</tr>
@@ -62,8 +62,9 @@ function CenterDisplay({ vaccineCenters }) {
 								</td>
 								<td>{center.sessions[0].available_capacity_dose1}</td>
 								<td>{center.sessions[0].available_capacity_dose2}</td>
-								<td>{center.sessions[0].min_age_limit}+</td>
+								<td>{center.sessions[0].min_age_limit}</td>
 								<td>{center.sessions[0].vaccine}</td>
+								<td>{center.fee_type}</td>
 							</tr>
 						);
 					})}

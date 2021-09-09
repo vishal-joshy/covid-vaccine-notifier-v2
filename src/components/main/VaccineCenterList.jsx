@@ -24,7 +24,7 @@ function VaccineCenterList() {
 		console.log('Vaccine Api fetch ');
 		try {
 			const response = await fetch(
-				`https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByDistrict?district_id=307&date=02-09-2021`,
+				`https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByDistrict?district_id=307&date=07-09-2021`,
 				{
 					mode: 'cors',
 				}
@@ -45,6 +45,7 @@ function VaccineCenterList() {
 				filterVaccine(vaccineFilter, filterAge(ageFilter, [...vaccineCenters]))
 			)
 		);
+		console.log(filteredData[0]);
 		if (notificationStatus) {
 			if (filteredData.length > 0) {
 				console.log('push notification');
@@ -73,32 +74,32 @@ function VaccineCenterList() {
 					onClick={() => {
 						setAgeFilter(0);
 					}}>
-					All
+					All Ages
 				</button>
 				<button
 					onClick={() => {
 						setAgeFilter(18);
 					}}>
-					18
+					Age 18
 				</button>
 				<button
 					onClick={() => {
 						setAgeFilter(40);
 					}}>
-					40
+					Age 40
 				</button>
 				<button
 					onClick={() => {
 						setAgeFilter(45);
 					}}>
-					45
+					Age 45
 				</button>
 				Vaccine:
 				<button
 					onClick={() => {
 						setVaccineFilter('ALL');
 					}}>
-					All
+					All Vaccines
 				</button>
 				<button
 					onClick={() => {
