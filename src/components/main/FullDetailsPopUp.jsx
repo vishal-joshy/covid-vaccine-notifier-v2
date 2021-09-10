@@ -14,18 +14,18 @@ function FullDetailsPopUp({ isPopupOpen, selectedCenter, closePopup }) {
 			<div className='pop-up'>
 				<button onClick={closePopup}>x</button>
 				<div>
-					<h5 className='card-title'>{selectedCenter.name}</h5>
-					<h6 className='card-subtitle mb-2 text-muted'>{selectedCenter.block_name}</h6>
-					<h6 className='card-subtitle mb-2 text-muted'>{selectedCenter.address}</h6>
-					<p className='card-text'>{selectedCenter.pincode}</p>
+					<h5>{selectedCenter.name}</h5>
+					<h6>{selectedCenter.block_name}</h6>
+					<h6>{selectedCenter.address}</h6>
+					<p>{selectedCenter.pincode}</p>
 				</div>
 				<div>
-					<table className='table'>
+					<table>
 						<thead>
 							<tr>
-								<th scope='col'>Date</th>
-								<th scope='col'>Dose 1</th>
-								<th scope='col'>Dose 2</th>
+								<th>Date</th>
+								<th>Dose 1</th>
+								<th>Dose 2</th>
 							</tr>
 						</thead>
 						<tbody>

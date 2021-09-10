@@ -19,28 +19,26 @@ function CenterDisplay({ vaccineCenters }) {
 
 	return (
 		<div>
-			<table className='table'>
+			<table>
 				<thead>
 					<tr>
 						<th
-							scope='col'
 							onClick={() => {
 								setUserSortSelection('date');
 							}}>
 							Date
 						</th>
 						<th
-							scope='col'
 							onClick={() => {
 								setUserSortSelection('name');
 							}}>
 							Center
 						</th>
-						<th scope='col'>Dose 1</th>
-						<th scope='col'>Dose 2</th>
-						<th scope='col'>Min.Age</th>
-						<th scope='col'>Vaccine</th>
-						<th scope='col'>Type</th>
+						<th>Dose 1</th>
+						<th>Dose 2</th>
+						<th>Min.Age</th>
+						<th>Vaccine</th>
+						<th>Type</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -55,9 +53,9 @@ function CenterDisplay({ vaccineCenters }) {
 								<td>{center.sessions[0].date}</td>
 								<td>
 									<div>
-										<h6 className='card-title'>{center.name}</h6>
-										<h6 className='card-subtitle mb-2 text-muted'>{center.block_name}</h6>
-										<p className='card-text'>{center.pincode}</p>
+										<h6>{center.name}</h6>
+										<h6>{center.block_name}</h6>
+										<p>{center.pincode}</p>
 									</div>
 								</td>
 								<td>{center.sessions[0].available_capacity_dose1}</td>

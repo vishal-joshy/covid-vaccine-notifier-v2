@@ -3,6 +3,7 @@ import createVaccineCenterList from './Center';
 import CenterDisplay from './CenterDisplay';
 import { filterAge, filterPinCode, filterVaccine, filterName } from './Filter';
 import { pushNotification } from './Notification';
+import './VaccineCenterList.css';
 
 function VaccineCenterList() {
 	const [vaccineCenters, setVaccineCenters] = useState([]);
@@ -62,63 +63,87 @@ function VaccineCenterList() {
 	const handlePinCodeFilter = (e) => {
 		setPinCodeFilter(e.target.value);
 	};
+	const handleVaccineRadio = (e) => {
+		setVaccineFilter(e.target.value);
+	};
+	const handleAgeRadio = (e) => {
+		setAgeFilter(parseInt(e.target.value));
+	};
 
 	return (
 		<div className='VaccineCenterList'>
 			<button onClick={getDataFromApi}>GetData</button>
-			<div>
-				Filters : Name: <input type='text' onChange={handleNameFilter}></input>
-				Pincode: <input type='number' onChange={handlePinCodeFilter}></input>
-				Age:
-				<button
-					onClick={() => {
-						setAgeFilter(0);
-					}}>
-					All Ages
-				</button>
-				<button
-					onClick={() => {
-						setAgeFilter(18);
-					}}>
-					Age 18
-				</button>
-				<button
-					onClick={() => {
-						setAgeFilter(40);
-					}}>
-					Age 40
-				</button>
-				<button
-					onClick={() => {
-						setAgeFilter(45);
-					}}>
-					Age 45
-				</button>
-				Vaccine:
-				<button
-					onClick={() => {
-						setVaccineFilter('ALL');
-					}}>
-					All Vaccines
-				</button>
-				<button
-					onClick={() => {
-						setVaccineFilter('COVISHIELD');
-					}}>
-					Covishield
-				</button>
-				<button
-					onClick={() => {
-						setVaccineFilter('COVAXIN');
-					}}>
-					Covaxin
-				</button>
-				<button
-					onClick={() => {
-						setVaccineFilter('SPUTNIK V');
-					}}>
-					Sputnik
-				</button>
+			<div className='filter-tab'>
+				<div>
+					<div className='switch-field'>
+						<input
+							type='radio'
+							id='age-one'
+							name='age-radio'
+							value='0'
+							onClick={handleAgeRadio}
+							defaultChecked
+						/>
+						<label htmlFor='age-one'>All</label>
+						<input type='radio' id='age-two' name='age-radio' value='18' onClick={handleAgeRadio} />
+						<label htmlFor='age-two'>Age 18</label>
+						<input
+							type='radio'
+							id='age-three'
+							name='age-radio'
+							value='40'
+							onClick={handleAgeRadio}
+						/>
+						<label htmlFor='age-three'>Age 40</label>
+						<input
+							type='radio'
+							id='age-four'
+							name='age-radio'
+							value='45'
+							onClick={handleAgeRadio}
+						/>
+						<label htmlFor='age-four'>Age 45</label>
+					</div>
+					<div className='switch-field'>
+						<input
+							type='radio'
+							id='vaccine-one'
+							name='vaccine-radio'
+							value='ALL'
+							onClick={handleVaccineRadio}
+							defaultChecked
+						/>
+						<label htmlFor='vaccine-one'>All</label>
+						<input
+							type='radio'
+							id='vaccine-two'
+							name='vaccine-radio'
+							value='COVISHIELD'
+							onClick={handleVaccineRadio}
+						/>
+						<label htmlFor='vaccine-two'>Covishield</label>
+						<input
+							type='radio'
+							id='vaccine-three'
+							name='vaccine-radio'
+							value='COVAXIN'
+							onClick={handleVaccineRadio}
+						/>
+						<label htmlFor='vaccine-three'>Covaxin</label>
+						<input
+							type='radio'
+							id='vaccine-four'
+							name='vaccine-radio'
+							value='SPUTNIK V'
+							onClick={handleVaccineRadio}
+						/>
+						<label htmlFor='vaccine-four'>Sputnik</label>
+					</div>
+				</div>
+				<div>
+					Name: <input type='text' onChange={handleNameFilter}></input>
+					Pincode: <input type='number' onChange={handlePinCodeFilter}></input>
+				</div>
 			</div>
 			{filteredVaccineCenters.length !== 0 ? (
 				<CenterDisplay vaccineCenters={filteredVaccineCenters} />
@@ -126,6 +151,7 @@ function VaccineCenterList() {
 				<div>
 					No vaccine centers available{' '}
 					<button
+						disabled={notificationStatus ? true : false}
 						onClick={() => {
 							setNotificationStatus(true);
 						}}>

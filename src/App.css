@@ -7,6 +7,13 @@ header {
 	color: #eceff4;
 }
 
+header > div > h1 {
+	margin: auto;
+}
+header > div > h6 {
+	margin: auto;
+}
+
 .App {
 	text-align: center;
 	display: flex;
