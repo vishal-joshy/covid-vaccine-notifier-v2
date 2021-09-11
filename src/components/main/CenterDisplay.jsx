@@ -19,30 +19,31 @@ function CenterDisplay({ vaccineCenters }) {
 
 	return (
 		<>
-	
-			<table>
+			<table className='vaccine-list-table'>
 				<thead>
 					<tr>
 						<th
+							className='col col-1'
 							onClick={() => {
 								setUserSortSelection('date');
 							}}>
 							Date
 						</th>
 						<th
+						className='col col-2'
 							onClick={() => {
 								setUserSortSelection('name');
 							}}>
 							Center
 						</th>
-						<th>Dose 1</th>
-						<th>Dose 2</th>
-						<th>Min.Age</th>
-						<th>Vaccine</th>
-						<th>Type</th>
+						<th className='col col-3'>Dose 1</th>
+						<th className='col col-4'>Dose 2</th>
+						<th className='col col-5'>Min.Age</th>
+						<th className='col col-6'>Vaccine</th>
+						<th className='col col-7'>Type</th>
 					</tr>
 				</thead>
-				<tbody>
+				<tbody className='vaccine-table-body'>
 					{sortedData.map((center, index) => {
 						return (
 							<tr
@@ -51,19 +52,15 @@ function CenterDisplay({ vaccineCenters }) {
 									setIsPopupOpen(true);
 									setSelectedCenter(center);
 								}}>
-								<td>{center.sessions[0].date}</td>
-								<td>
-									<div>
-										<h6>{center.name}</h6>
-										<h6>{center.block_name}</h6>
-										<p>{center.pincode}</p>
-									</div>
+								<td className='col col-1'>{center.sessions[0].date}</td>
+								<td className='col col-2'>
+									<div>{center.name}</div>
 								</td>
-								<td>{center.sessions[0].available_capacity_dose1}</td>
-								<td>{center.sessions[0].available_capacity_dose2}</td>
-								<td>{center.sessions[0].min_age_limit}</td>
-								<td>{center.sessions[0].vaccine}</td>
-								<td>{center.fee_type}</td>
+								<td className='col col-3'>{center.sessions[0].available_capacity_dose1}</td>
+								<td className='col col-4'>{center.sessions[0].available_capacity_dose2}</td>
+								<td className='col col-5'>{center.sessions[0].min_age_limit}</td>
+								<td className='col col-6'>{center.sessions[0].vaccine}</td>
+								<td className='col col-7'>{center.fee_type}</td>
 							</tr>
 						);
 					})}

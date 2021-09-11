@@ -141,13 +141,17 @@ function VaccineCenterList() {
 					</div>
 				</div>
 				<div className='input-filter-container'>
+					<div>
 					<label htmlFor='name-filter'>Name</label>
 					<input type='text' id='name-filter' onChange={handleNameFilter}></input>
+					</div>
+					<div>
 					<label htmlFor='pin-filter'>Pincode</label>
 					<input type='number' id='pin-filter' onChange={handlePinCodeFilter}></input>
+					</div>
 				</div>
 			</div>
-			<div className='table-container'>
+			<div className='vaccine-list-table'>
 				{filteredVaccineCenters.length !== 0 ? (
 					<CenterDisplay vaccineCenters={filteredVaccineCenters} />
 				) : (
