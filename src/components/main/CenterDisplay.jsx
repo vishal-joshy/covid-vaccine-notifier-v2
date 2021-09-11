@@ -18,7 +18,8 @@ function CenterDisplay({ vaccineCenters }) {
 	}, [userSortSelection, vaccineCenters]);
 
 	return (
-		<div>
+		<>
+	
 			<table>
 				<thead>
 					<tr>
@@ -74,7 +75,7 @@ function CenterDisplay({ vaccineCenters }) {
 					/>
 				</tbody>
 			</table>
-		</div>
+		</>
 	);
 }
 

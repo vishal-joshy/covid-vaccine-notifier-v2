@@ -72,9 +72,9 @@ function VaccineCenterList() {
 
 	return (
 		<div className='VaccineCenterList'>
-			<button onClick={getDataFromApi}>GetData</button>
-			<div className='filter-tab'>
-				<div>
+			<button onClick={getDataFromApi}>Refresh</button>
+			<div className='filter-container'>
+				<div className='radio-container'>
 					<div className='switch-field'>
 						<input
 							type='radio'
@@ -86,7 +86,7 @@ function VaccineCenterList() {
 						/>
 						<label htmlFor='age-one'>All</label>
 						<input type='radio' id='age-two' name='age-radio' value='18' onClick={handleAgeRadio} />
-						<label htmlFor='age-two'>Age 18</label>
+						<label htmlFor='age-two'>Age 18+</label>
 						<input
 							type='radio'
 							id='age-three'
@@ -94,7 +94,7 @@ function VaccineCenterList() {
 							value='40'
 							onClick={handleAgeRadio}
 						/>
-						<label htmlFor='age-three'>Age 40</label>
+						<label htmlFor='age-three'>Age 40+</label>
 						<input
 							type='radio'
 							id='age-four'
@@ -102,7 +102,7 @@ function VaccineCenterList() {
 							value='45'
 							onClick={handleAgeRadio}
 						/>
-						<label htmlFor='age-four'>Age 45</label>
+						<label htmlFor='age-four'>Age 45+</label>
 					</div>
 					<div className='switch-field'>
 						<input
@@ -140,25 +140,29 @@ function VaccineCenterList() {
 						<label htmlFor='vaccine-four'>Sputnik</label>
 					</div>
 				</div>
-				<div>
-					Name: <input type='text' onChange={handleNameFilter}></input>
-					Pincode: <input type='number' onChange={handlePinCodeFilter}></input>
+				<div className='input-filter-container'>
+					<label htmlFor='name-filter'>Name</label>
+					<input type='text' id='name-filter' onChange={handleNameFilter}></input>
+					<label htmlFor='pin-filter'>Pincode</label>
+					<input type='number' id='pin-filter' onChange={handlePinCodeFilter}></input>
 				</div>
 			</div>
-			{filteredVaccineCenters.length !== 0 ? (
-				<CenterDisplay vaccineCenters={filteredVaccineCenters} />
-			) : (
-				<div>
-					No vaccine centers available{' '}
-					<button
-						disabled={notificationStatus ? true : false}
-						onClick={() => {
-							setNotificationStatus(true);
-						}}>
-						Notify Me !
-					</button>
-				</div>
-			)}
+			<div className='table-container'>
+				{filteredVaccineCenters.length !== 0 ? (
+					<CenterDisplay vaccineCenters={filteredVaccineCenters} />
+				) : (
+					<div className='notification-prompt'>
+						<h4>No vaccine centers available!</h4>
+						<button
+							disabled={notificationStatus ? true : false}
+							onClick={() => {
+								setNotificationStatus(true);
+							}}>
+							Notify Me !
+						</button>
+					</div>
+				)}
+			</div>
 		</div>
 	);
 }
