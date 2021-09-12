@@ -87,6 +87,12 @@
 	border: 1px solid rgba(0, 0, 0, 0.2);
 	box-shadow: inset 0 1px 3px rgb(0 0 0 / 30%), 0 1px rgb(255 255 255 / 10%);
 }
+.notification-prompt > button:hover {
+	background-color: #a3be8c;
+}
+.notification-prompt > button:disabled{
+	background-color: #a3be8c;
+}
 
 /* table */
 .vaccine-list-table {

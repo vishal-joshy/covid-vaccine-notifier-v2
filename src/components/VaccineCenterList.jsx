@@ -26,10 +26,8 @@ function VaccineCenterList({vaccineCenters}) {
 				)
 			)
 		);
-		console.log(filteredData[0]);
 		if (notificationStatus) {
 			if (filteredData.length > 0) {
-				console.log('push notification');
 				pushNotification();
 				setNotificationStatus(false);
 			}

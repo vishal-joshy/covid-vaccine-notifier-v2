@@ -5,10 +5,7 @@ import './FullDetailsPopUp.css';
 function FullDetailsPopUp({ isPopupOpen, selectedCenter, closePopup }) {
 	let sessionsArray = selectedCenter.sessions;
 	if (!isPopupOpen) return null;
-	console.log(selectedCenter);
-	selectedCenter.sessions.forEach((element) => {
-		console.log(element);
-	});
+	
 	return ReactDom.createPortal(
 		<>
 			<div className='overlay'></div>

@@ -29,7 +29,6 @@ function App() {
 	};
 
 	const getDataFromApi = async () => {
-		console.log('Vaccine Api fetch ');
 		try {
 			const response = await fetch(
 				`https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByDistrict?district_id=307&date=${getPresentDate()}`,
@@ -47,11 +46,10 @@ function App() {
 
 	useEffect(() => {
 		//Call APi with Delay
-		console.log('useEffect API Fetch with interval 5000');
 		getDataFromApi();
 		setInterval(() => {
 			getDataFromApi();
-		}, 10000000);
+		}, 10000);
 		return () => {};
 	}, []);
 
