@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import VaccineCenterList from './components/main/VaccineCenterList';
+import VaccineCenterList from './components/VaccineCenterList';
 
 function App() {
 	const Header = () => {

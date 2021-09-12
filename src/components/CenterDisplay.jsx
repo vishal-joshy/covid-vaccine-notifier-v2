@@ -54,7 +54,7 @@ function CenterDisplay({ vaccineCenters }) {
 								}}>
 								<td className='col col-1'>{center.sessions[0].date}</td>
 								<td className='col col-2'>
-									<div>{center.name}</div>
+									<div>{center.name},{center.block_name},{center.pincode}</div>
 								</td>
 								<td className='col col-3'>{center.sessions[0].available_capacity_dose1}</td>
 								<td className='col col-4'>{center.sessions[0].available_capacity_dose2}</td>

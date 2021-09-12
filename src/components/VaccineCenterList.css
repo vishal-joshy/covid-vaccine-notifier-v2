@@ -110,6 +110,8 @@
 }
 
 .vaccine-list-table > tbody {
+	overflow: auto;
+	height: 65vh;
 }
 .vaccine-list-table > thead > tr > .col-1,
 .vaccine-list-table > tbody > tr > .col-1 {
