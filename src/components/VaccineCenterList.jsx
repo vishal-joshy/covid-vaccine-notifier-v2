@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import createVaccineCenterList from './Center';
 import CenterDisplay from './CenterDisplay';
-import { filterAge, filterPinCode, filterVaccine, filterName } from './Filter';
+import { filterAge, filterPinCode, filterVaccine, filterName, filterFee } from './Filter';
 import { pushNotification } from './Notification';
 import './VaccineCenterList.css';
 
@@ -13,6 +13,7 @@ function VaccineCenterList() {
 	const [nameFilter, setNameFilter] = useState('');
 	const [pinCodeFilter, setPinCodeFilter] = useState(0);
 	const [notificationStatus, setNotificationStatus] = useState(false);
+	const [feeFilter, setFeeFilter] = useState('ALL');
 
 	// useEffect(() => {					//Call APi with Delay
 	// 	console.log('useEffect API Fetch with interval 5000')
@@ -43,7 +44,10 @@ function VaccineCenterList() {
 			pinCodeFilter,
 			filterName(
 				nameFilter,
-				filterVaccine(vaccineFilter, filterAge(ageFilter, [...vaccineCenters]))
+				filterVaccine(
+					vaccineFilter,
+					filterAge(ageFilter, filterFee(feeFilter, [...vaccineCenters]))
+				)
 			)
 		);
 		console.log(filteredData[0]);
@@ -55,7 +59,7 @@ function VaccineCenterList() {
 			}
 		}
 		setFilteredVaccineCenters(filteredData);
-	}, [ageFilter, vaccineFilter, nameFilter, pinCodeFilter, vaccineCenters, notificationStatus]);
+	}, [ageFilter, vaccineFilter, nameFilter, pinCodeFilter, vaccineCenters, notificationStatus,feeFilter]);
 
 	const handleNameFilter = (e) => {
 		setNameFilter(e.target.value);
@@ -68,6 +72,10 @@ function VaccineCenterList() {
 	};
 	const handleAgeRadio = (e) => {
 		setAgeFilter(parseInt(e.target.value));
+	};
+	const handleFeeRadio = (e) => {
+		console.log(e.target.value);
+		setFeeFilter(e.target.value);
 	};
 
 	return (
@@ -139,15 +147,44 @@ function VaccineCenterList() {
 						/>
 						<label htmlFor='vaccine-four'>Sputnik</label>
 					</div>
+
+					<div className='switch-field'>
+						<input
+							type='radio'
+							id='fee-one'
+							name='fee-radio'
+							value='ALL'
+							onClick={handleFeeRadio}
+							defaultChecked
+						/>
+						<label htmlFor='fee-one'>All</label>
+						<input
+							type='radio'
+							id='fee-two'
+							name='fee-radio'
+							value='Free'
+							onClick={handleFeeRadio}
+						/>
+						<label htmlFor='fee-two'>Free</label>
+						<input
+							type='radio'
+							id='fee-three'
+							name='fee-radio'
+							value='Paid'
+							onClick={handleFeeRadio}
+						/>
+						<label htmlFor='fee-three'>Paid</label>
+					</div>
 				</div>
+
 				<div className='input-filter-container'>
 					<div>
-					<label htmlFor='name-filter'>Name</label>
-					<input type='text' id='name-filter' onChange={handleNameFilter}></input>
+						<label htmlFor='name-filter'>Name</label>
+						<input type='text' id='name-filter' onChange={handleNameFilter}></input>
 					</div>
 					<div>
-					<label htmlFor='pin-filter'>Pincode</label>
-					<input type='number' id='pin-filter' onChange={handlePinCodeFilter}></input>
+						<label htmlFor='pin-filter'>Pincode</label>
+						<input type='number' id='pin-filter' onChange={handlePinCodeFilter}></input>
 					</div>
 				</div>
 			</div>

@@ -24,6 +24,19 @@ const filterVaccine = (vaccineFilter, centers) => {
 	return newCenters;
 };
 
+const filterFee = (feeFilter, centers) => {
+	if (feeFilter === 'ALL') {
+		return centers;
+	}
+	const newCenters = centers.filter((center) => {
+		if (center.fee_type === feeFilter) {
+			return center;
+		}
+		return null;
+	});
+	return newCenters;
+};
+
 const filterName = (nameFilter, centers) => {
 	if (nameFilter === '') {
 		return centers;
@@ -53,4 +66,4 @@ const filterPinCode = (pinCodeFilter, centers) => {
 	return newCenters;
 };
 
-export { filterAge, filterVaccine, filterName, filterPinCode };
+export { filterAge, filterVaccine, filterName, filterPinCode, filterFee };
