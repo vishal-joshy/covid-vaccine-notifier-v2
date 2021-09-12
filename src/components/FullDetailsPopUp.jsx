@@ -14,26 +14,26 @@ function FullDetailsPopUp({ isPopupOpen, selectedCenter, closePopup }) {
 			<div className='overlay'></div>
 			<div className='pop-up'>
 				<button onClick={closePopup}>X</button>
-				<table>
+				<table className='details-table'>
 					<tbody>
 						<tr>
-							<td>Center:</td>
+							<td className='details-head'>Center:</td>
 							<td>{selectedCenter.name}</td>
 						</tr>
 						<tr>
-							<td>Address :</td>
+							<td className='details-head'>Address:</td>
 							<td>{selectedCenter.address}</td>
 						</tr>
 						<tr>
-							<td>Pincode :</td>
+							<td className='details-head'>Pincode:</td>
 							<td>{selectedCenter.pincode}</td>
 						</tr>
 						<tr>
-							<td>Vaccine :</td>
+							<td className='details-head'>Vaccine:</td>
 							<td>{selectedCenter.sessions[0].vaccine}</td>
 						</tr>
 						<tr>
-							<td>Fee :</td>
+							<td className='details-head'>Fee:</td>
 							{(selectedCenter.fee_type==='Free')?(<td>Free</td>):(<td>₹{selectedCenter.vaccine_fees[0].fee}</td>)}
 						</tr>
 					</tbody>
@@ -41,14 +41,13 @@ function FullDetailsPopUp({ isPopupOpen, selectedCenter, closePopup }) {
 
 				<div>
 					<h4>All Sessions</h4>
-					<table>
+					<table className='all-sessions-table'>
 						<thead>
 							<tr>
 								<th>Date</th>
 								<th>Min.Age</th>
 								<th>Dose 1</th>
 								<th>Dose 2</th>
-								
 							</tr>
 						</thead>
 						<tbody>

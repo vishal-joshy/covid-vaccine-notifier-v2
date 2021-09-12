@@ -67,6 +67,9 @@
 	flex-wrap: wrap;
 	padding-bottom: 1em;
 }
+.input-filter-container > div {
+	margin: 0px 10px 0 10px;
+}
 /* notification */
 .notification-prompt {
 	height: 50vh;
