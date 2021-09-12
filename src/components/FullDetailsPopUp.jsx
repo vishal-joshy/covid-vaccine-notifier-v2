@@ -51,16 +51,16 @@ function FullDetailsPopUp({ isPopupOpen, selectedCenter, closePopup }) {
 							</tr>
 						</thead>
 						<tbody>
-							{sessionsArray.map((session, index) => {
+							{React.Children.toArray(sessionsArray.map((session) => {
 								return (
-									<tr key={index}>
+									<tr>
 										<td>{session.date}</td>
 										<td>{session.min_age_limit}</td>
 										<td>{session.available_capacity_dose1}</td>
 										<td>{session.available_capacity_dose2}</td>
 									</tr>
 								);
-							})}
+							}))}
 						</tbody>
 					</table>
 				</div>

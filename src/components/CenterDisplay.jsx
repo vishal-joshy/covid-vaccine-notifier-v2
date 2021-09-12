@@ -30,7 +30,7 @@ function CenterDisplay({ vaccineCenters }) {
 							Date
 						</th>
 						<th
-						className='col col-2'
+							className='col col-2'
 							onClick={() => {
 								setUserSortSelection('name');
 							}}>
@@ -44,26 +44,29 @@ function CenterDisplay({ vaccineCenters }) {
 					</tr>
 				</thead>
 				<tbody className='vaccine-table-body'>
-					{sortedData.map((center, index) => {
-						return (
-							<tr
-								key={index}
-								onClick={() => {
-									setIsPopupOpen(true);
-									setSelectedCenter(center);
-								}}>
-								<td className='col col-1'>{center.sessions[0].date}</td>
-								<td className='col col-2'>
-									<div>{center.name},{center.block_name},{center.pincode}</div>
-								</td>
-								<td className='col col-3'>{center.sessions[0].available_capacity_dose1}</td>
-								<td className='col col-4'>{center.sessions[0].available_capacity_dose2}</td>
-								<td className='col col-5'>{center.sessions[0].min_age_limit}</td>
-								<td className='col col-6'>{center.sessions[0].vaccine}</td>
-								<td className='col col-7'>{center.fee_type}</td>
-							</tr>
-						);
-					})}
+					{React.Children.toArray(
+						sortedData.map((center) => {
+							return (
+								<tr
+									onClick={() => {
+										setIsPopupOpen(true);
+										setSelectedCenter(center);
+									}}>
+									<td className='col col-1'>{center.sessions[0].date}</td>
+									<td className='col col-2'>
+										<div>
+											{center.name},{center.block_name},{center.pincode}
+										</div>
+									</td>
+									<td className='col col-3'>{center.sessions[0].available_capacity_dose1}</td>
+									<td className='col col-4'>{center.sessions[0].available_capacity_dose2}</td>
+									<td className='col col-5'>{center.sessions[0].min_age_limit}</td>
+									<td className='col col-6'>{center.sessions[0].vaccine}</td>
+									<td className='col col-7'>{center.fee_type}</td>
+								</tr>
+							);
+						})
+					)}
 
 					<FullDetailsPopUp
 						isPopupOpen={isPopupOpen}

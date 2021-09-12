@@ -1,52 +1,28 @@
 import React, { useEffect, useState } from 'react';
-import createVaccineCenterList from './Center';
+
 import CenterDisplay from './CenterDisplay';
 import { filterAge, filterPinCode, filterVaccine, filterName, filterFee } from './Filter';
 import { pushNotification } from './Notification';
 import './VaccineCenterList.css';
 
-function VaccineCenterList() {
-	const [vaccineCenters, setVaccineCenters] = useState([]);
+function VaccineCenterList({vaccineCenters}) {
+	
 	const [ageFilter, setAgeFilter] = useState(0);
 	const [vaccineFilter, setVaccineFilter] = useState('ALL');
-	const [filteredVaccineCenters, setFilteredVaccineCenters] = useState([]);
 	const [nameFilter, setNameFilter] = useState('');
 	const [pinCodeFilter, setPinCodeFilter] = useState(0);
-	const [notificationStatus, setNotificationStatus] = useState(false);
 	const [feeFilter, setFeeFilter] = useState('ALL');
-
-	// useEffect(() => {					//Call APi with Delay
-	// 	console.log('useEffect API Fetch with interval 5000')
-	// 	setInterval(()=>{getDataFromApi()} , 5000);
-	// 	return () => {
-	// 	}
-	// }, [])
-
-	const getDataFromApi = async () => {
-		console.log('Vaccine Api fetch ');
-		try {
-			const response = await fetch(
-				`https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByDistrict?district_id=307&date=07-09-2021`,
-				{
-					mode: 'cors',
-				}
-			);
-			const apiData = await response.json();
-			const centerList = createVaccineCenterList(apiData.centers);
-			setVaccineCenters(centerList);
-		} catch (err) {
-			console.log(err);
-		}
-	};
+	const [filteredVaccineCenters, setFilteredVaccineCenters] = useState([]);
+	const [notificationStatus, setNotificationStatus] = useState(false);
+	
+	
 
 	useEffect(() => {
-		const filteredData = filterPinCode(
-			pinCodeFilter,
-			filterName(
-				nameFilter,
-				filterVaccine(
-					vaccineFilter,
-					filterAge(ageFilter, filterFee(feeFilter, [...vaccineCenters]))
+		const filteredData = filterPinCode(pinCodeFilter,
+			filterName(nameFilter,
+				filterVaccine(vaccineFilter,
+					filterAge(ageFilter, 
+						filterFee(feeFilter, [...vaccineCenters]))
 				)
 			)
 		);
@@ -80,7 +56,6 @@ function VaccineCenterList() {
 
 	return (
 		<div className='VaccineCenterList'>
-			<button onClick={getDataFromApi}>Refresh</button>
 			<div className='filter-container'>
 				<div className='radio-container'>
 					<div className='switch-field'>

@@ -18,3 +18,8 @@ header > div > h1 {
 header > div > h6 {
 	margin: auto;
 }
+
+.cowin-link>button>a{
+    text-decoration: none;
+    color: black;
+}
