@@ -3,6 +3,7 @@ import './App.css';
 import VaccineCenterList from './components/VaccineCenterList';
 import createVaccineCenterList from './components/Center';
 import Header from './components/Header';
+import { getPresentDate } from './components/DateTime';
 
 function App() {
 	const [vaccineCenters, setVaccineCenters] = useState([]);
@@ -10,21 +11,6 @@ function App() {
 		district_id: 307,
 		district_name: 'Ernakulam',
 	});
-
-	const getPresentDate = function () {
-		let today = new Date();
-		const dd = String(today.getDate());
-		let mm = today.getMonth() + 1;
-		let mmModifiedString;
-		if (mm < 10) {
-			mmModifiedString = `0${mm}`;
-		} else {
-			mmModifiedString = `${mm}`;
-		}
-		const yyyy = String(today.getFullYear());
-		today = `${dd}-${mmModifiedString}-${yyyy}`;
-		return today;
-	};
 
 	const getDataFromApi = async (url) => {
 		console.log(url);

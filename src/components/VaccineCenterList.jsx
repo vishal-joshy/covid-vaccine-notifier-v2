@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-
 import CenterDisplay from './CenterDisplay';
+import { getTime } from './DateTime';
 import { filterAge, filterPinCode, filterVaccine, filterName, filterFee } from './Filter';
 import { pushNotification } from './Notification';
 import './VaccineCenterList.css';
@@ -41,13 +41,6 @@ function VaccineCenterList({ vaccineCenters }) {
 		notificationStatus,
 		feeFilter,
 	]);
-
-	const getRefreshTime = () => {
-		const date = new Date();
-		const timeString = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
-		console.log(timeString);
-		return timeString;
-	};
 
 	const handleNameFilter = (e) => {
 		setNameFilter(e.target.value);
@@ -164,8 +157,8 @@ function VaccineCenterList({ vaccineCenters }) {
 					</div>
 				</div>
 
-				<div className='input-filter-container'>
-					<div>
+				<div className='secondary-filter-container'>
+					<div className='input-filter-container'>
 						<div>
 							<label htmlFor='name-filter'>Name</label>
 							<input type='text' id='name-filter' onChange={handleNameFilter}></input>
@@ -175,7 +168,7 @@ function VaccineCenterList({ vaccineCenters }) {
 							<input type='number' id='pin-filter' onChange={handlePinCodeFilter}></input>
 						</div>
 					</div>
-					<div>{getRefreshTime()}</div>
+					<div>Last refresh : {getTime()}</div>
 				</div>
 			</div>
 			<div className='vaccine-list-table'>
