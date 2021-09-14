@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import VaccineCenterList from './components/VaccineCenterList';
-import createVaccineCenterList from './components/Center';
+import { createVaccineCenterList } from './components/HelperModules/Center';
 import Header from './components/Header';
-import { getPresentDate } from './components/DateTime';
+import { getPresentDate } from './components/HelperModules/DateTime';
 
 function App() {
 	const [vaccineCenters, setVaccineCenters] = useState([]);

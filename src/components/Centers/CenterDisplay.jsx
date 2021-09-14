@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './CenterDisplay.css';
-import FullDetailsPopUp from './FullDetailsPopUp';
-import { sortCentersByDate, sortCentersByName } from './Sort';
+import FullDetailsPopUp from './FullDetailsPopUp/FullDetailsPopUp';
+import { sortCentersByDate, sortCentersByName } from '../HelperModules/Sort';
 
 function CenterDisplay({ vaccineCenters }) {
 	const [isPopupOpen, setIsPopupOpen] = useState(false);

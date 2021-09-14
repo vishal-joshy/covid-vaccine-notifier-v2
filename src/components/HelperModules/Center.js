@@ -16,4 +16,4 @@ const removeEmptySessions = (sessions) => {
 	return newSessions;
 };
 
-export default createVaccineCenterList;
+export {createVaccineCenterList};

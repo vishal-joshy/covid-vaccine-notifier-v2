@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import CenterDisplay from './CenterDisplay';
-import { getTime } from './DateTime';
-import { filterAge, filterPinCode, filterVaccine, filterName, filterFee } from './Filter';
-import { pushNotification } from './Notification';
+import CenterDisplay from './Centers/CenterDisplay';
+import { getTime } from './HelperModules/DateTime';
+import { filterAge, filterPinCode, filterVaccine, filterName, filterFee } from './HelperModules/Filter';
+import { pushNotification } from './HelperModules/Notification';
 import './VaccineCenterList.css';
 
 function VaccineCenterList({ vaccineCenters }) {
