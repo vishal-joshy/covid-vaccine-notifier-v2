@@ -2,23 +2,15 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import VaccineCenterList from './components/VaccineCenterList';
 import createVaccineCenterList from './components/Center';
+import Header from './components/Header';
 
 function App() {
 	const [vaccineCenters, setVaccineCenters] = useState([]);
+	const [selectedDistrict, setSelectedDistrict] = useState({
+		district_id: 307,
+		district_name: 'Ernakulam',
+	});
 
-	const Header = () => {
-		return (
-			<header>
-				<div>
-					<h1>Covid Vaccine Notifier</h1>
-					<h6>Ernakulam</h6>
-				</div>
-				<div className='cowin-link'>
-					<button><a href="https://selfregistration.cowin.gov.in/">Co-WIN</a></button>
-				</div>
-			</header>
-		);
-	};
 	const getPresentDate = function () {
 		let today = new Date();
 		const dd = String(today.getDate());
@@ -28,15 +20,14 @@ function App() {
 		return today;
 	};
 
-	const getDataFromApi = async () => {
+	const getDataFromApi = async (url) => {
+		console.log(url);
 		try {
-			const response = await fetch(
-				`https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByDistrict?district_id=307&date=${getPresentDate()}`,
-				{
-					mode: 'cors',
-				}
-			);
+			const response = await fetch(url, {
+				mode: 'cors',
+			});
 			const apiData = await response.json();
+			console.log(apiData);
 			const centerList = createVaccineCenterList([...apiData.centers]);
 			setVaccineCenters([...centerList]);
 		} catch (err) {
@@ -44,18 +35,35 @@ function App() {
 		}
 	};
 
+	const getDistrict = (district) => {
+		console.log(district);
+		setSelectedDistrict(district);
+	};
+
+	const getUrl = () => {
+		const district = selectedDistrict.district_id;
+		const date = getPresentDate();
+		const url = `https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByDistrict?district_id=${district}&date=${date}`;
+		return url;
+	};
+
 	useEffect(() => {
 		//Call APi with Delay
-		getDataFromApi();
-		setInterval(() => {
-			getDataFromApi();
+
+		getDataFromApi(getUrl());
+
+		const inter = setInterval(() => {
+			getDataFromApi(getUrl());
 		}, 10000);
-		return () => {};
-	}, []);
+
+		return () => {
+			clearInterval(inter);
+		};
+	}, [selectedDistrict]);
 
 	return (
 		<div className='App'>
-			<Header />
+			<Header getDistrict={getDistrict} selectedDistrict={selectedDistrict} />
 			<VaccineCenterList vaccineCenters={vaccineCenters} />
 		</div>
 	);
