@@ -5,8 +5,7 @@ import { filterAge, filterPinCode, filterVaccine, filterName, filterFee } from '
 import { pushNotification } from './Notification';
 import './VaccineCenterList.css';
 
-function VaccineCenterList({vaccineCenters}) {
-	
+function VaccineCenterList({ vaccineCenters }) {
 	const [ageFilter, setAgeFilter] = useState(0);
 	const [vaccineFilter, setVaccineFilter] = useState('ALL');
 	const [nameFilter, setNameFilter] = useState('');
@@ -14,15 +13,15 @@ function VaccineCenterList({vaccineCenters}) {
 	const [feeFilter, setFeeFilter] = useState('ALL');
 	const [filteredVaccineCenters, setFilteredVaccineCenters] = useState([]);
 	const [notificationStatus, setNotificationStatus] = useState(false);
-	
-	
 
 	useEffect(() => {
-		const filteredData = filterPinCode(pinCodeFilter,
-			filterName(nameFilter,
-				filterVaccine(vaccineFilter,
-					filterAge(ageFilter, 
-						filterFee(feeFilter, [...vaccineCenters]))
+		const filteredData = filterPinCode(
+			pinCodeFilter,
+			filterName(
+				nameFilter,
+				filterVaccine(
+					vaccineFilter,
+					filterAge(ageFilter, filterFee(feeFilter, [...vaccineCenters]))
 				)
 			)
 		);
@@ -33,7 +32,22 @@ function VaccineCenterList({vaccineCenters}) {
 			}
 		}
 		setFilteredVaccineCenters(filteredData);
-	}, [ageFilter, vaccineFilter, nameFilter, pinCodeFilter, vaccineCenters, notificationStatus,feeFilter]);
+	}, [
+		ageFilter,
+		vaccineFilter,
+		nameFilter,
+		pinCodeFilter,
+		vaccineCenters,
+		notificationStatus,
+		feeFilter,
+	]);
+
+	const getRefreshTime = () => {
+		const date = new Date();
+		const timeString = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
+		console.log(timeString);
+		return timeString;
+	};
 
 	const handleNameFilter = (e) => {
 		setNameFilter(e.target.value);
@@ -152,13 +166,16 @@ function VaccineCenterList({vaccineCenters}) {
 
 				<div className='input-filter-container'>
 					<div>
-						<label htmlFor='name-filter'>Name</label>
-						<input type='text' id='name-filter' onChange={handleNameFilter}></input>
+						<div>
+							<label htmlFor='name-filter'>Name</label>
+							<input type='text' id='name-filter' onChange={handleNameFilter}></input>
+						</div>
+						<div>
+							<label htmlFor='pin-filter'>Pincode</label>
+							<input type='number' id='pin-filter' onChange={handlePinCodeFilter}></input>
+						</div>
 					</div>
-					<div>
-						<label htmlFor='pin-filter'>Pincode</label>
-						<input type='number' id='pin-filter' onChange={handlePinCodeFilter}></input>
-					</div>
+					<div>{getRefreshTime()}</div>
 				</div>
 			</div>
 			<div className='vaccine-list-table'>
