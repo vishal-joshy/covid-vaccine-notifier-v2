@@ -7,8 +7,6 @@ function Header({ getDistrict, selectedDistrict }) {
 	const getStateData = async () => {
 		const res = await fetch('https://cdn-api.co-vin.in/api/v2/admin/location/districts/17');
 		const data = await res.json();
-		console.log(data);
-		console.log(data.districts);
 		setDistricts(data.districts);
 	};
 
@@ -17,7 +15,6 @@ function Header({ getDistrict, selectedDistrict }) {
 	}, []);
 
 	const handelDropdownButtonClick = () => {
-		console.log('clicked');
 		if (dropdownStatus) {
 			setDropdownStatus(false);
 		} else {
@@ -25,8 +22,6 @@ function Header({ getDistrict, selectedDistrict }) {
 		}
 	};
 	const handleDistrictSelection = (e, index) => {
-		console.log(districts[index].district_id);
-		console.log(districts[index]);
 		getDistrict(districts[index]);
 		setDropdownStatus(false);
 	};

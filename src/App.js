@@ -13,13 +13,11 @@ function App() {
 	});
 
 	const getDataFromApi = async (url) => {
-		console.log(url);
 		try {
 			const response = await fetch(url, {
 				mode: 'cors',
 			});
 			const apiData = await response.json();
-			console.log(apiData);
 			const centerList = createVaccineCenterList([...apiData.centers]);
 			setVaccineCenters([...centerList]);
 		} catch (err) {
@@ -28,7 +26,6 @@ function App() {
 	};
 
 	const getDistrict = (district) => {
-		console.log(district);
 		setSelectedDistrict(district);
 	};
 

@@ -37,6 +37,25 @@ const filterFee = (feeFilter, centers) => {
 	return newCenters;
 };
 
+const filterDose = (doseFilter, centers) => {
+	if (doseFilter === 'ALL') {
+		return centers;
+	}
+	const newCenters = centers.filter((center) => {
+		if (doseFilter === 'dose1') {
+			if (center.sessions[0].available_capacity_dose1 > 0) {
+				return center;
+			}
+		} else if (doseFilter === 'dose2') {
+			if (center.sessions[0].available_capacity_dose2 > 0) {
+				return center;
+			}
+		}
+		return null;
+	});
+	return newCenters;
+};
+
 const filterName = (nameFilter, centers) => {
 	if (nameFilter === '') {
 		return centers;
@@ -66,4 +85,4 @@ const filterPinCode = (pinCodeFilter, centers) => {
 	return newCenters;
 };
 
-export { filterAge, filterVaccine, filterName, filterPinCode, filterFee };
+export { filterAge, filterVaccine, filterName, filterPinCode, filterFee, filterDose };

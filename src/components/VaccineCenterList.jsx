@@ -1,17 +1,27 @@
 import React, { useEffect, useState } from 'react';
 import CenterDisplay from './Centers/CenterDisplay';
 import { getTime } from './HelperModules/DateTime';
-import { filterAge, filterPinCode, filterVaccine, filterName, filterFee } from './HelperModules/Filter';
+import {
+	filterAge,
+	filterPinCode,
+	filterVaccine,
+	filterName,
+	filterFee,
+	filterDose,
+} from './HelperModules/Filter';
 import { pushNotification } from './HelperModules/Notification';
 import './VaccineCenterList.css';
 
 function VaccineCenterList({ vaccineCenters }) {
+	const [filteredVaccineCenters, setFilteredVaccineCenters] = useState([]);
+
 	const [ageFilter, setAgeFilter] = useState(0);
 	const [vaccineFilter, setVaccineFilter] = useState('ALL');
 	const [nameFilter, setNameFilter] = useState('');
 	const [pinCodeFilter, setPinCodeFilter] = useState(0);
 	const [feeFilter, setFeeFilter] = useState('ALL');
-	const [filteredVaccineCenters, setFilteredVaccineCenters] = useState([]);
+	const [doseFilter, setDoseFilter] = useState('ALL');
+
 	const [notificationStatus, setNotificationStatus] = useState(false);
 
 	useEffect(() => {
@@ -21,7 +31,7 @@ function VaccineCenterList({ vaccineCenters }) {
 				nameFilter,
 				filterVaccine(
 					vaccineFilter,
-					filterAge(ageFilter, filterFee(feeFilter, [...vaccineCenters]))
+					filterAge(ageFilter, filterFee(feeFilter, filterDose(doseFilter, [...vaccineCenters])))
 				)
 			)
 		);
@@ -40,6 +50,7 @@ function VaccineCenterList({ vaccineCenters }) {
 		vaccineCenters,
 		notificationStatus,
 		feeFilter,
+		doseFilter
 	]);
 
 	const handleNameFilter = (e) => {
@@ -55,8 +66,10 @@ function VaccineCenterList({ vaccineCenters }) {
 		setAgeFilter(parseInt(e.target.value));
 	};
 	const handleFeeRadio = (e) => {
-		console.log(e.target.value);
 		setFeeFilter(e.target.value);
+	};
+	const handleDoseRadio = (e) => {
+		setDoseFilter(e.target.value);
 	};
 
 	return (
@@ -154,6 +167,34 @@ function VaccineCenterList({ vaccineCenters }) {
 							onClick={handleFeeRadio}
 						/>
 						<label htmlFor='fee-three'>Paid</label>
+					</div>
+
+					<div className='switch-field'>
+						<input
+							type='radio'
+							id='dose-one'
+							name='dose-radio'
+							value='ALL'
+							onClick={handleDoseRadio}
+							defaultChecked
+						/>
+						<label htmlFor='dose-one'>All</label>
+						<input
+							type='radio'
+							id='dose-two'
+							name='dose-radio'
+							value='dose1'
+							onClick={handleDoseRadio}
+						/>
+						<label htmlFor='dose-two'>Dose1</label>
+						<input
+							type='radio'
+							id='dose-three'
+							name='dose-radio'
+							value='dose2'
+							onClick={handleDoseRadio}
+						/>
+						<label htmlFor='dose-three'>Dose2</label>
 					</div>
 				</div>
 
