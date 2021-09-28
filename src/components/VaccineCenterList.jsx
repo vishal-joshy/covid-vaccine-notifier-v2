@@ -25,16 +25,20 @@ function VaccineCenterList({ vaccineCenters }) {
 	const [notificationStatus, setNotificationStatus] = useState(false);
 
 	useEffect(() => {
-		const filteredData = filterPinCode(
-			pinCodeFilter,
-			filterName(
-				nameFilter,
-				filterVaccine(
-					vaccineFilter,
-					filterAge(ageFilter, filterFee(feeFilter, filterDose(doseFilter, [...vaccineCenters])))
+		const filterData = (data) =>
+			filterPinCode(
+				pinCodeFilter,
+				filterName(
+					nameFilter,
+					filterVaccine(
+						vaccineFilter,
+						filterAge(ageFilter, filterFee(feeFilter, filterDose(doseFilter, data)))
+					)
 				)
-			)
-		);
+			);
+			
+		const filteredData = filterData([...vaccineCenters]);
+
 		if (notificationStatus) {
 			if (filteredData.length > 0) {
 				pushNotification();
@@ -50,7 +54,7 @@ function VaccineCenterList({ vaccineCenters }) {
 		vaccineCenters,
 		notificationStatus,
 		feeFilter,
-		doseFilter
+		doseFilter,
 	]);
 
 	const handleNameFilter = (e) => {
