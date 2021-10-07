@@ -40,6 +40,7 @@ function VaccineCenterList({ vaccineCenters }) {
 		const filteredData = filterData([...vaccineCenters]);
 
 		if (notificationStatus) {
+			Notification.requestPermission()
 			if (filteredData.length > 0) {
 				pushNotification();
 				setNotificationStatus(false);

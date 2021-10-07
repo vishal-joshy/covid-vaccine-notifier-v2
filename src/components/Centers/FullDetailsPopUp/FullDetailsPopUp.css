@@ -21,3 +21,8 @@
 .all-sessions-table > tbody > tr > td {
 	text-align: center;
 }
+
+.sessions-table-container {
+	max-height: 120px;
+	overflow: auto;
+}
