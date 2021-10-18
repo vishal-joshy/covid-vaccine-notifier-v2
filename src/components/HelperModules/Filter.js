@@ -1,4 +1,4 @@
-const filterAge = (ageFilter, centers) => {
+const filterAge = (ageFilter) => (centers) => {
 	if (ageFilter === 0) {
 		return centers;
 	}
@@ -11,7 +11,7 @@ const filterAge = (ageFilter, centers) => {
 	return newCenters;
 };
 
-const filterVaccine = (vaccineFilter, centers) => {
+const filterVaccine = (vaccineFilter) => (centers) => {
 	if (vaccineFilter === 'ALL') {
 		return centers;
 	}
@@ -24,7 +24,7 @@ const filterVaccine = (vaccineFilter, centers) => {
 	return newCenters;
 };
 
-const filterFee = (feeFilter, centers) => {
+const filterFee = (feeFilter) => (centers) => {
 	if (feeFilter === 'ALL') {
 		return centers;
 	}
@@ -37,7 +37,7 @@ const filterFee = (feeFilter, centers) => {
 	return newCenters;
 };
 
-const filterDose = (doseFilter, centers) => {
+const filterDose = (doseFilter) => (centers) => {
 	if (doseFilter === 'ALL') {
 		return centers;
 	}
@@ -56,7 +56,7 @@ const filterDose = (doseFilter, centers) => {
 	return newCenters;
 };
 
-const filterName = (nameFilter, centers) => {
+const filterName = (nameFilter) => (centers) => {
 	if (nameFilter === '') {
 		return centers;
 	}
@@ -70,7 +70,7 @@ const filterName = (nameFilter, centers) => {
 	});
 	return newCenters;
 };
-const filterPinCode = (pinCodeFilter, centers) => {
+const filterPinCode = (pinCodeFilter) => (centers) => {
 	if (pinCodeFilter === 0) {
 		return centers;
 	}
@@ -84,5 +84,9 @@ const filterPinCode = (pinCodeFilter, centers) => {
 	});
 	return newCenters;
 };
+const pipe =
+	(...fns) =>
+	(value) =>
+		fns.reduce((acc, f) => f(acc), value);
 
-export { filterAge, filterVaccine, filterName, filterPinCode, filterFee, filterDose };
+export { filterAge, filterVaccine, filterName, filterPinCode, filterFee, filterDose, pipe };

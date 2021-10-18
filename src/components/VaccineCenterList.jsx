@@ -8,6 +8,7 @@ import {
 	filterName,
 	filterFee,
 	filterDose,
+	pipe
 } from './HelperModules/Filter';
 import { pushNotification } from './HelperModules/Notification';
 import './VaccineCenterList.css';
@@ -24,23 +25,33 @@ function VaccineCenterList({ vaccineCenters }) {
 
 	const [notificationStatus, setNotificationStatus] = useState(false);
 
+	
+
 	useEffect(() => {
-		const filterData = (data) =>
-			filterPinCode(
-				pinCodeFilter,
-				filterName(
-					nameFilter,
-					filterVaccine(
-						vaccineFilter,
-						filterAge(ageFilter, filterFee(feeFilter, filterDose(doseFilter, data)))
-					)
-				)
-			);
-			
+			// const filterData = (data) =>
+		// 	filterPinCode(
+		// 		pinCodeFilter,
+		// 		filterName(
+		// 			nameFilter,
+		// 			filterVaccine(
+		// 				vaccineFilter,
+		// 				filterAge(ageFilter, filterFee(feeFilter, filterDose(doseFilter, data)))
+		// 			)
+		// 		)
+		// 	);
+		const filterData = pipe(
+			filterPinCode(pinCodeFilter),
+			filterName(nameFilter),
+			filterVaccine(vaccineFilter),
+			filterAge(ageFilter),
+			filterFee(feeFilter),
+			filterDose(doseFilter)
+		);
+
 		const filteredData = filterData([...vaccineCenters]);
 
 		if (notificationStatus) {
-			Notification.requestPermission()
+			Notification.requestPermission();
 			if (filteredData.length > 0) {
 				pushNotification();
 				setNotificationStatus(false);
