@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, memo } from 'react';
 import CenterDisplay from './Centers/CenterDisplay';
 import { getTime } from './HelperModules/DateTime';
 import {
@@ -248,4 +248,4 @@ function VaccineCenterList({ vaccineCenters }) {
 	);
 }
 
-export default VaccineCenterList;
+export default memo(VaccineCenterList);
