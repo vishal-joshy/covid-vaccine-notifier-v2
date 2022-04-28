@@ -4,8 +4,6 @@ A react app that notifies user with vaccine slot availability for the next 7 day
 
 Live server : https://vishaljoshy18.github.io/covid-vaccine-notifier-v2/
 
-Old Version : https://vishaljoshy18.github.io/covid-vaccine-notifier/ 
-
 ## Usage
 
 1. Select district. 
