@@ -85,8 +85,19 @@ const filterPinCode = (pinCodeFilter) => (centers) => {
 	return newCenters;
 };
 const pipe =
-	(...fns) =>
-	(value) =>
-		fns.reduce((acc, f) => f(acc), value);
+  (...fns) =>
+  value =>
+    fns.reduce((acc, f) => f(acc), value);
 
-export { filterAge, filterVaccine, filterName, filterPinCode, filterFee, filterDose, pipe };
+function applyFilters(filter, vaccineCenters) {
+  return pipe(
+    filterPinCode(filter.pinCode),
+    filterName(filter.name),
+    filterVaccine(filter.vaccine),
+    filterAge(filter.age),
+    filterFee(filter.fee),
+    filterDose(filter.dose),
+  )(vaccineCenters);
+}
+
+export { applyFilters };
